@@ -1,0 +1,57 @@
+Requisitos:
+    PHP version 5.2.4 ou acima
+    MySQL version 5.0 ou acima
+
+Passos para proceder à instalação da aplicação:
+1. Efetue o download da aplicação e do Framework Yii.
+	http://www.matriculas.com.pt/download.html
+	http://www.yiiframework.com/download/
+
+2. Descompacte a aplicação para a raiz do seu site e o Framework Yii para a diretoria inferior à raiz do site.
+	// no ficheiro index.php, altere se necessário o caminho para o framework Yii:
+	$yii=dirname(__FILE__).'/../../yii-1.1.10.r3566/framework/yii.php';
+	$config=dirname(__FILE__).'/protected/config/main.php';
+
+3. Crie uma base de dados Mysql e respectivo utilizador e password, usando phpMyAdmin ou outra ferramenta à sua escolha.
+	Efetue a instalação da base de dados, o ficheiro sql está disponível na diretoria:
+		protected\data\schema-mysql-matriculas.sql
+
+4. Será necessário ter um conjunto de referencias multibanco, aconselhamos a fazer um contrato com uma empresa
+	distribuidora de serviços de referências Multibanco, por forma a adquirir um pacote de referencias e uma entidade.
+	Por exemplo: 123 456 000 até 123 456 999 (1.000 referências)
+
+5. Altere a ligação à base de dados nos seguintes ficheiros:
+	protected\config\main.php , na linha:
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=matriculas',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'password' => 'root',
+			'charset' => 'utf8',
+			'tablePrefix' => '',
+		),
+	tree\server.php, na linha:
+		$db_config = array(
+			"servername"=> "localhost",
+			"username"	=> "root",
+			"password"	=> "root",
+			"database"	=> "matriculas"
+		);
+	tree\index_test.php, na linha:
+		$db_config = array(
+			"servername"=> "localhost",
+			"username"	=> "root",
+			"password"	=> "root",
+			"database"	=> "matriculas"
+		);
+
+6. Modifique os dados de acesso à zona de administração e a sua referência multibanco inicial:
+		no ficheiro protected\config\main.php, na linha:
+		'params'=>array(
+		'login_username'=>'admin',
+		'login_password'=>'admin',
+		'mb_entidade'=>'98765',
+		'mb_referencia_inicial'=>'123456000',
+		'mensagem_login'=>'Pista: Dados de demonstração <tt>admin/admin</tt>.'
+
+7. Aceda à zona de administração e personalize a aplicação.
